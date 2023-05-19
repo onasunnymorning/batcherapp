@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	batch "github.com/onasunnymorning/batcherapp"
+	"github.com/onasunnymorning/batcherapp/batch"
 )
 
 func main() {
