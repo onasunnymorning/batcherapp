@@ -21,6 +21,10 @@ func NewBatch(name string) Batch {
 	return Batch{
 		Id:               uuid.New(),
 		Name:             name,
+		CacaoPercentage:  float32(0),
+		Output:           0,
+		Ingredients:      []BatchIngredient{},
+		History:          []BatchEvent{},
 		AptForProduction: false,
 	}
 }
