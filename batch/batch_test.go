@@ -70,6 +70,21 @@ func TestMarkAptForProduction(t *testing.T) {
 	if event.Action != "marked_apt_for_production" {
 		t.Errorf("Expected history event action to be 'marked_apt_for_production', but got %q", event.Action)
 	}
+
+	b.RemoveAptForProduction()
+
+	if b.AptForProduction {
+		t.Errorf("Expected AptForProduction to be false, but got true")
+	}
+
+	if len(b.History) != 2 {
+		t.Errorf("Expected 2 history events, but got %d", len(b.History))
+	}
+
+	event = b.History[1]
+	if event.Action != "removed_apt_for_production" {
+		t.Errorf("Expected history event action to be 'removed_apt_for_production', but got %q", event.Action)
+	}
 }
 
 func TestAddNotes(t *testing.T) {
@@ -93,4 +108,19 @@ func TestAddNotes(t *testing.T) {
 	if event.Message != notes {
 		t.Errorf("Expected history event message to be %q, but got %q", notes, event.Message)
 	}
+}
+
+func TestStop(t *testing.T) {
+	b := NewBatch("Test Batch")
+	b.Stop()
+
+	if len(b.History) != 1 {
+		t.Errorf("Expected 1 history event, but got %d", len(b.History))
+	}
+
+	event := b.History[0]
+	if event.Action != "stop" {
+		t.Errorf("Expected history event action to be 'stop', but got %q", event.Action)
+	}
+
 }

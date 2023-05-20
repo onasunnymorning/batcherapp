@@ -49,12 +49,28 @@ func (b *Batch) MarkAptForProduction() {
 	})
 }
 
+func (b *Batch) RemoveAptForProduction() {
+	b.AptForProduction = false
+	b.History = append(b.History, BatchEvent{
+		Ts:      time.Now(),
+		Action:  "removed_apt_for_production",
+		Message: "",
+	})
+}
+
 func (b *Batch) AddNotes(notes string) {
 	b.Notes = notes
 	b.History = append(b.History, BatchEvent{
 		Ts:      time.Now(),
 		Action:  "add_notes",
 		Message: notes,
+	})
+}
+
+func (b *Batch) Stop() {
+	b.History = append(b.History, BatchEvent{
+		Ts:     time.Now(),
+		Action: "stop",
 	})
 }
 
