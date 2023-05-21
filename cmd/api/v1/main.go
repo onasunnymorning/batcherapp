@@ -1,10 +1,12 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
 
 	v1 "github.com/onasunnymorning/batcherapp/app/api/v1"
 	"github.com/onasunnymorning/batcherapp/batch"
@@ -16,7 +18,14 @@ type BatchCreateRequest struct {
 
 func main() {
 
-	gormDB, err := gorm.Open(postgres.Open("postgres://postgres:mysecretpassword@localhost:5432/batch"))
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
+
+	// gormDB, err := gorm.Open(postgres.Open("postgres://postgres:mysecretpassword@batcherapp-db-1:5432/batch"))
+	gormDB, err := gorm.Open(postgres.Open("postgres://" + dbUser + ":" + dbPass + "@" + dbHost + ":" + dbPort + "/" + dbName))
 	if err != nil {
 		log.Fatal(err)
 	}
