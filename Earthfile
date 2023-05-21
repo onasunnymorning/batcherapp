@@ -24,4 +24,4 @@ build:
 
     CMD [ "/batcherapp" ]
 
-    SAVE IMAGE --push batcherapp:latest
+    SAVE IMAGE --push gprins/batcherapp:latest
