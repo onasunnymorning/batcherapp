@@ -19,7 +19,7 @@ services:
       - db:/var/lib/postgresql/data
     
   app:
-    image: batcherapp:latest
+    image: gprins/batcherapp:latest
     restart: always
     depends_on:
       db:
