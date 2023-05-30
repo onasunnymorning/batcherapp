@@ -1,8 +1,11 @@
 package apiv1
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 func SetupBatchRoutes(r *gin.Engine, h *batchHandler) {
+	h.batchRepository.Migrate(nil)
 	r.POST("/batch", h.CreateBatch)
 	r.GET("/batch/:id", h.GetBatchByID)
 	r.DELETE("/batch/:id", h.DeleteBatchByID)
